@@ -126,7 +126,29 @@ describe("Orders API", function(){
     });
   });
 
-  after(function(done) {
+  describe("DELETE /api/orders/:id", () => {
+    it("should delete order if exists", (done) => {
+      var req = { params: { id: id } };
+      var res = testUtils.responseValidator(200, (obj) => {
+        obj.should.have.property("deleted");
+        obj.deleted.should.equal(true);
+        done();
+      });
+
+      orders.deleteOrder(req, res);
+    });
+
+    it("should return 404 record not found if id doesn't exist", (done) => {
+      var req = { params: { id: "gibberish" } };
+      var res = testUtils.responseValidator(404, (err) => {
+        done();
+      });
+
+      orders.deleteOrder(req, res);
+    });
+  });
+
+  after((done) => {
     Order.remove({}, (err) => {
       if (err) { console.log(err); }
     });

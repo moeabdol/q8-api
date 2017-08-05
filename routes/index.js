@@ -7,5 +7,6 @@ router.get("/orders", orders.getOrders);
 router.get("/orders/:id", orders.getOrder);
 router.post("/orders", orders.createOrder);
 router.put("/orders/:id", orders.updateOrder);
+router.delete("/orders/:id", orders.deleteOrder);
 
 module.exports = router;

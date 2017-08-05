@@ -58,9 +58,20 @@ var updateOrder = (req, res) => {
   });
 };
 
+var deleteOrder = (req, res) => {
+  Order.findById(req.params.id, (err) => {
+    if (err) {
+      res.send(404, err);
+    } else {
+      res.json(200, { "deleted": true } );
+    }
+  });
+};
+
 module.exports = {
   getOrders,
   getOrder,
   createOrder,
   updateOrder,
+  deleteOrder,
 };
