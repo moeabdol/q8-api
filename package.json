@@ -1,0 +1,17 @@
+{
+  "name": "q8-api",
+  "version": "1.0.0",
+  "description": "Q8 as an ExpressJS API",
+  "main": "index.js",
+  "repository": "git@github.com:moeabdol/q8-api",
+  "author": "moeabdol <mohd.a.saed@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.15.3",
+    "mongoose": "^4.11.5"
+  },
+  "devDependencies": {
+    "mocha": "^3.5.0",
+    "should": "^11.2.1"
+  }
+}
