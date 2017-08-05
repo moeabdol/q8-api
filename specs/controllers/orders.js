@@ -92,6 +92,40 @@ describe("Orders API", function(){
     });
   });
 
+  describe("PUT /api/orders/:id", () => {
+    it("should update order if exists", (done) => {
+      var req = {
+        params: { id: id },
+        body: {
+          companyName: "my co."
+        }
+      };
+
+      var res = testUtils.responseValidator(200, (order) => {
+        order.should.have.property("companyName");
+        order.companyName.should.equal("my co.");
+        done();
+      });
+
+      orders.updateOrder(req, res);
+    });
+
+    it("should return 404 record not found if id doesn't exist", () => {
+      var req = {
+        params: { id: "gibberish" },
+        body: {
+          companyName: "my co."
+        }
+      };
+
+      var res = testUtils.responseValidator(404, (err) => {
+        done();
+      });
+
+      orders.updateOrder(req, res);
+    });
+  });
+
   after(function(done) {
     Order.remove({}, (err) => {
       if (err) { console.log(err); }
