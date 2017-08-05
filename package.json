@@ -6,6 +6,9 @@
   "repository": "git@github.com:moeabdol/q8-api",
   "author": "moeabdol <mohd.a.saed@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "start": "node index.js"
+  },
   "dependencies": {
     "express": "^4.15.3",
     "mongoose": "^4.11.5"
