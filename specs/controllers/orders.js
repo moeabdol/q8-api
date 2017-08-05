@@ -68,6 +68,30 @@ describe("Orders API", function(){
     });
   });
 
+  describe("POST /api/orders", () => {
+    it("should create a new order", (done) => {
+      var req = {
+        body: {
+          companyName: "my co",
+          customerAddress: "abc st",
+          orderedItem: "item 001"
+        }
+      };
+
+      var res = testUtils.responseValidator(201, (order) => {
+        order.should.have.property("companyName")
+        order.companyName.should.equal("my co");
+        order.should.have.property("customerAddress");
+        order.customerAddress.should.equal("abc st");
+        order.should.have.property("orderedItem");
+        order.orderedItem.should.equal("item 001");
+        done();
+      });
+
+      orders.createOrder(req, res);
+    });
+  });
+
   after(function(done) {
     Order.remove({}, (err) => {
       if (err) { console.log(err); }

@@ -21,7 +21,19 @@ var getOrder = (req, res) => {
   });
 };
 
+var createOrder = (req, res) => {
+  var order = new Order(req.body);
+  order.save((err, post) => {
+    if (err) {
+      res.send(500, err);
+    } else {
+      res.json(201, order);
+    }
+  });
+};
+
 module.exports = {
   getOrders,
-  getOrder
+  getOrder,
+  createOrder,
 };
