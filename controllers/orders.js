@@ -23,7 +23,7 @@ var getOrder = (req, res) => {
 
 var createOrder = (req, res) => {
   var order = new Order(req.body);
-  order.save((err, post) => {
+  order.save((err, order) => {
     if (err) {
       res.send(500, err);
     } else {
