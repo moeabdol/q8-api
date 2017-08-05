@@ -11,6 +11,17 @@ var getOrders = (req, res) => {
   });
 };
 
+var getOrder = (req, res) => {
+  Order.findById(req.params.id, (err, order) => {
+    if (err) {
+      res.send(404, err);
+    } else {
+      res.json(200, order);
+    }
+  });
+};
+
 module.exports = {
-  getOrders
+  getOrders,
+  getOrder
 };

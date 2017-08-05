@@ -13,7 +13,6 @@ describe("Orders API", function(){
 
   before(function(done) {
     mongoose.connect(config.testDb, { useMongoClient: true }, () => {
-      console.log("Connected to: ", config.testDb);
       done();
     });
 
@@ -38,6 +37,34 @@ describe("Orders API", function(){
       });
 
       orders.getOrders(req, res);
+    });
+  });
+
+  describe("GET /api/orders/:id", () => {
+    it("should get order by id", (done) => {
+      var req = { params: { id: id } };
+
+      var res = testUtils.responseValidator(200, (order) => {
+        order.should.have.property("companyName");
+        order.companyName.should.equal("dummy co");
+        order.should.have.property("customerAddress");
+        order.customerAddress.should.equal("somewhere in the horizon");
+        order.should.have.property("orderedItem");
+        order.orderedItem.should.equal("dummy bear");
+        done();
+      });
+
+      orders.getOrder(req, res);
+    });
+
+    it("should return 404 record not found if id doesn't exist", (done) => {
+      var req = { params: { id: "gibberish" } };
+
+      var res = testUtils.responseValidator(404, (err) => {
+        done();
+      });
+
+      orders.getOrder(req, res);
     });
   });
 
