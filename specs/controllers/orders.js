@@ -165,6 +165,27 @@ describe("Orders API", function(){
     });
   });
 
+  describe("GET /api/orders/customer/:customerAddress", () => {
+    it("should get orders filtered by customer address", (done) => {
+      var req = { params: { customerAddress: dummyOrder.customerAddress } };
+      var res = testUtils.responseValidator(200, (orders) => {
+        orders.length.should.equal(1);
+      });
+
+      orders.getOrdersByCustomerAddress(req, res);
+      done();
+    });
+
+    it("should return 404 record not found if customer address doesn't exist",
+      (done) => {
+      var req = { params: { customerAddress: "gibberish" } };
+      var res = testUtils.responseValidator(404, (err) => {});
+
+      orders.getOrdersByCustomerAddress(req, res);
+      done();
+    });
+  });
+
   after((done) => {
     Order.remove({}, (err) => {
       if (err) { console.log(err); }

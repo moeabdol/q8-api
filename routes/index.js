@@ -9,5 +9,7 @@ router.post("/orders", orders.createOrder);
 router.put("/orders/:id", orders.updateOrder);
 router.delete("/orders/:id", orders.deleteOrder);
 router.get("/orders/company/:companyName", orders.getOrdersByCompanyName);
+router.get("/orders/customer/:customerAddress",
+  orders.getOrdersByCustomerAddress);
 
 module.exports = router;

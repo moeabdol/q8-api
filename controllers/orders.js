@@ -69,7 +69,17 @@ var deleteOrder = (req, res) => {
 };
 
 var getOrdersByCompanyName = (req, res) => {
-  Order.where({ companyName: req.params.companyName }).find((err, orders) => {
+  Order.find({ companyName: req.params.companyName }, (err, orders) => {
+    if (err) {
+      res.send(404, err);
+    } else {
+      res.json(200, orders);
+    }
+  });
+};
+
+var getOrdersByCustomerAddress = (req, res) => {
+  Order.find({ customerAddress: req.params.customerAddress }, (err, orders) => {
     if (err) {
       res.send(404, err);
     } else {
@@ -85,4 +95,5 @@ module.exports = {
   updateOrder,
   deleteOrder,
   getOrdersByCompanyName,
+  getOrdersByCustomerAddress,
 };
