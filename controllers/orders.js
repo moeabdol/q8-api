@@ -103,7 +103,7 @@ var getTrends = (req, res) => {
 
   Order.aggregate(agg, (err, trends) => {
     if (err) {
-      res.send(404, err);
+      res.send(500, err);
     } else {
       res.json(200, trends);
     }

@@ -8,6 +8,9 @@ var routes     = require("./routes");
 // Initialize express app
 var app = express();
 
+// Serve static files from "public" folder
+app.use(express.static('public'));
+
 // Parse request body as json
 app.use(bodyParser.json());
 
