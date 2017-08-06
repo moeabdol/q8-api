@@ -88,6 +88,28 @@ var getOrdersByCustomerAddress = (req, res) => {
   });
 };
 
+var getTrends = (req, res) => {
+  var agg = [
+    {
+      $group: {
+        _id: "$orderedItem",
+        count: { $sum: 1 }
+      }
+    },
+    {
+      $sort: { count: -1 }
+    },
+  ];
+
+  Order.aggregate(agg, (err, trends) => {
+    if (err) {
+      res.send(404, err);
+    } else {
+      res.json(200, trends);
+    }
+  });
+};
+
 module.exports = {
   getOrders,
   getOrder,
@@ -96,4 +118,5 @@ module.exports = {
   deleteOrder,
   getOrdersByCompanyName,
   getOrdersByCustomerAddress,
+  getTrends,
 };

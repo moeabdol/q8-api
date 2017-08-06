@@ -186,6 +186,18 @@ describe("Orders API", function(){
     });
   });
 
+  describe("GET /api/orders/items/trends", () => {
+    it("should return trending items in desc order", (done) => {
+      var req = {};
+      var res = testUtils.responseValidator(200, (trends) => {
+        trends.length.should.equal(2);
+      });
+
+      orders.getTrends(req, res);
+      done();
+    });
+  });
+
   after((done) => {
     Order.remove({}, (err) => {
       if (err) { console.log(err); }

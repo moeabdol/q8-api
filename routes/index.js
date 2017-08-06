@@ -11,5 +11,6 @@ router.delete("/orders/:id", orders.deleteOrder);
 router.get("/orders/company/:companyName", orders.getOrdersByCompanyName);
 router.get("/orders/customer/:customerAddress",
   orders.getOrdersByCustomerAddress);
+router.get("/orders/items/trends", orders.getTrends);
 
 module.exports = router;
