@@ -33,10 +33,10 @@ describe("Orders API", function(){
       var req = {};
       var res = testUtils.responseValidator(200, (orders) => {
         orders.length.should.equal(1);
-        done();
       });
 
       orders.getOrders(req, res);
+      done();
     });
   });
 
@@ -51,20 +51,19 @@ describe("Orders API", function(){
         order.customerAddress.should.equal("somewhere in the horizon");
         order.should.have.property("orderedItem");
         order.orderedItem.should.equal("dummy bear");
-        done();
       });
 
       orders.getOrder(req, res);
+      done();
     });
 
     it("should return 404 record not found if id doesn't exist", (done) => {
       var req = { params: { id: "gibberish" } };
 
-      var res = testUtils.responseValidator(404, (err) => {
-        done();
-      });
+      var res = testUtils.responseValidator(404, (err) => {});
 
       orders.getOrder(req, res);
+      done();
     });
   });
 
@@ -85,10 +84,10 @@ describe("Orders API", function(){
         order.customerAddress.should.equal("abc st");
         order.should.have.property("orderedItem");
         order.orderedItem.should.equal("item 001");
-        done();
       });
 
       orders.createOrder(req, res);
+      done();
     });
   });
 
@@ -104,13 +103,13 @@ describe("Orders API", function(){
       var res = testUtils.responseValidator(200, (order) => {
         order.should.have.property("companyName");
         order.companyName.should.equal("my co.");
-        done();
       });
 
       orders.updateOrder(req, res);
+      done();
     });
 
-    it("should return 404 record not found if id doesn't exist", () => {
+    it("should return 404 record not found if id doesn't exist", (done) => {
       var req = {
         params: { id: "gibberish" },
         body: {
@@ -118,11 +117,10 @@ describe("Orders API", function(){
         }
       };
 
-      var res = testUtils.responseValidator(404, (err) => {
-        done();
-      });
+      var res = testUtils.responseValidator(404, (err) => {});
 
       orders.updateOrder(req, res);
+      done();
     });
   });
 
@@ -132,19 +130,38 @@ describe("Orders API", function(){
       var res = testUtils.responseValidator(200, (obj) => {
         obj.should.have.property("deleted");
         obj.deleted.should.equal(true);
-        done();
       });
 
       orders.deleteOrder(req, res);
+      done();
     });
 
     it("should return 404 record not found if id doesn't exist", (done) => {
       var req = { params: { id: "gibberish" } };
-      var res = testUtils.responseValidator(404, (err) => {
-        done();
-      });
+      var res = testUtils.responseValidator(404, (err) => {});
 
       orders.deleteOrder(req, res);
+      done();
+    });
+  });
+
+  describe("GET /api/orders/company/:companyName", () => {
+    it("should get orders filtered by company name", (done) => {
+      var req = { params: { companyName: dummyOrder.companyName } };
+      var res = testUtils.responseValidator(200, (orders) => {
+        orders.length.should.equal(1);
+      });
+
+      orders.getOrdersByCompanyName(req, res);
+      done();
+    });
+
+    it("should return 404 record not found if company doesn't exist", (done) => {
+      var req = { params: { companyName: "gibberish" } };
+      var res = testUtils.responseValidator(404, (err) => {});
+
+      orders.getOrdersByCompanyName(req, res);
+      done();
     });
   });
 

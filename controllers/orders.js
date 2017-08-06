@@ -68,10 +68,21 @@ var deleteOrder = (req, res) => {
   });
 };
 
+var getOrdersByCompanyName = (req, res) => {
+  Order.where({ companyName: req.params.companyName }).find((err, orders) => {
+    if (err) {
+      res.send(404, err);
+    } else {
+      res.json(200, orders);
+    }
+  });
+};
+
 module.exports = {
   getOrders,
   getOrder,
   createOrder,
   updateOrder,
   deleteOrder,
+  getOrdersByCompanyName,
 };
