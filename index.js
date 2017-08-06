@@ -18,12 +18,12 @@ app.use(bodyParser.json());
 mongoose.Promise = global.Promise;
 
 // Connect to database
-mongoose.connect(config.db, { useMongoClient: true}, (err) => {
+mongoose.connect(config.prodDb, { useMongoClient: true}, (err) => {
   if (err) {
-    console.log("Could not connect to database: " + config.db, err);
+    console.log("Could not connect to database: " + config.prodDb, err);
   }
   else {
-    console.log("Connected to database: ", config.db);
+    console.log("Connected to database: ", config.prodDb);
   }
 });
 
