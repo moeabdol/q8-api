@@ -63,7 +63,13 @@ var deleteOrder = (req, res) => {
     if (err) {
       res.send(404, err);
     } else {
-      res.json(200, { "deleted": true } );
+      Order.remove({ _id: req.params.id }, (err) => {
+        if (err) {
+          res.send(500, err);
+        } else {
+          res.json(200, { "deleted": true } );
+        }
+      });
     }
   });
 };

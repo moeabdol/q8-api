@@ -190,7 +190,7 @@ describe("Orders API", function(){
     it("should return trending items in desc order", (done) => {
       var req = {};
       var res = testUtils.responseValidator(200, (trends) => {
-        trends.length.should.equal(2);
+        trends.length.should.equal(1);
       });
 
       orders.getTrends(req, res);
